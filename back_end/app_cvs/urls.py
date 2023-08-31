@@ -5,10 +5,13 @@ from django.urls import path, include, re_path, reverse_lazy
 from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 
+from app_cvs import views
+
 # from main import views
 
 router = DefaultRouter()
-# router.register(r'paises', views.Paises, basename='paises')
+router.register(r'listavalores', views.ListaValores, basename='listavalores')
+router.register(r'plantilla', views.Plantilla, basename='plantilla')
 
 urlpatterns = [
     path('', include(router.urls)),
