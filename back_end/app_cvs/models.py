@@ -3,57 +3,43 @@ from django.db import models
 
 # Create your models here.
 
-
-class Contacto(models.Model):
+class ListaValores(models.Model):
     texto = models.CharField(max_length=50)
 
     def __str__(self):
         return "Valor: {}".format(self.texto)
 
 
-class PerfilProfesional(models.Model):
-    texto = models.CharField(max_length=250)
-
-    def __str__(self):
-        return "Valor: {}".format(self.texto)
+class Contacto(ListaValores):
+    pass
 
 
-class Intereses(models.Model):
-    texto = models.CharField(max_length=250)
-
-    def __str__(self):
-        return "Valor: {}".format(self.texto)
+class PerfilProfesional(ListaValores):
+    pass
 
 
-class HistorialEmpleo(models.Model):
-    texto = models.CharField(max_length=250)
-
-    def __str__(self):
-        return "Valor: {}".format(self.texto)
+class Intereses(ListaValores):
+    pass
 
 
-class HistorialEducativo(models.Model):
-    texto = models.CharField(max_length=250)
-
-    def __str__(self):
-        return "Valor: {}".format(self.texto)
+class HistorialEmpleo(ListaValores):
+    pass
 
 
-class Otros(models.Model):
-    texto = models.CharField(max_length=250)
-
-    def __str__(self):
-        return "Valor: {}".format(self.texto)
+class HistorialEducativo(ListaValores):
+    pass
 
 
-class Software(models.Model):
-    texto = models.CharField(max_length=250)
+class Otros(ListaValores):
+    pass
 
-    def __str__(self):
-        return "Valor: {}".format(self.texto)
+
+class Software(ListaValores):
+    pass
 
 
 class RedesSociales(models.Model):
+    url_red = models.CharField(max_length=200)
     texto = models.CharField(max_length=250)
     logo = models.ImageField(upload_to='main/imagenes/redesSociales')
 
@@ -75,6 +61,7 @@ class Plantilla(models.Model):
     otros = models.ManyToManyField(Otros)
     software = models.ManyToManyField(Software)
     redesSociales = models.ManyToManyField(RedesSociales)
+    tipoPlantilla = models.CharField(max_length=50)
 
     def __str__(self):
         return "Valor: {}".format(self.nombre)
