@@ -11,7 +11,7 @@
 <div>
   <ng-container *ngFor="let plantilla of plantillas, let i of index">
     <div>
-      <a routerLink="/plantilla">{{plantilla.nombre}}</a>
+      <a (click)="enlacePlantilla(plantilla.id)">{{plantilla.nombre}} {{plantilla.id}}</a>
     </div>
   </ng-container>
 </div>

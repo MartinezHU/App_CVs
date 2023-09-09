@@ -1,1 +1,22 @@
-<p>plantillas works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina de pLantilla</title>
+</head>
+<body>
+    <div>
+        <h3>Datos Contacto</h3>
+        <ul>
+            <li *ngFor="let contacto of plantilla?.datos_contacto">{{contacto.texto}}</li>
+        </ul>
+
+        <br>
+        <h3>Datos Historial Educativo</h3>
+        <ul>
+            <li *ngFor="let histEdu of plantilla?.datos_historialEducativo">{{histEdu.texto}}</li>
+        </ul>
+    </div>
+</body>
+</html>

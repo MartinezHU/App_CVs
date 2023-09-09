@@ -5,7 +5,7 @@ import {PlantillasComponent} from "./pages/plantillas/plantillas.component";
 
 const routes: Routes = [
   {path: '', component: MainComponent},
-  {path: 'plantilla', component: PlantillasComponent}
+  {path: 'plantilla/:id', component: PlantillasComponent}
 ];
 
 @NgModule({

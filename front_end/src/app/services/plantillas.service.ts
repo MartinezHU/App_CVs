@@ -16,4 +16,8 @@ export class PlantillasService {
     return this.http.get<Plantilla[]>(`${url}/plantilla/`)
   }
 
+  getPlantilla(id: string|null): Observable<Plantilla>{
+    return this.http.get<Plantilla>(`${url}/plantilla/${id}/`)
+  }
+
 }
