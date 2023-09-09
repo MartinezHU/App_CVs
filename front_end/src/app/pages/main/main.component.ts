@@ -20,9 +20,20 @@ export class MainComponent implements OnInit {
   }
 
   mostrarPlantillas() {
-    this.plantillasService.getPlantillas().subscribe((resp: Plantilla[]) => {
-      this.plantillas = resp;
+    this.plantillasService.getPlantillas().subscribe({
+   
+      next:(resp) => {
+        this.plantillas = resp
+        console.log('Llamada al metodo') 
+      },
+      error: (e) => {
+        console.log(e)
+      },
+      complete: () => console.log('Llamada completada')
+      
     })
+
+ 
   }
 
 }
