@@ -12,6 +12,13 @@
     <ul>
       <li *ngFor="let contacto of plantilla?.datos_contacto">{{contacto.texto}}</li>
     </ul>
+    <div>
+      <form [formGroup]="formularioContacto" (ngSubmit)="nuevoContacto()">
+        <input type="text" formControlName="texto">
+        <label for="">Nuevo contacto</label>
+        <button type="submit">Nuevo contacto</button>
+      </form>
+    </div>
   </div>
   <div cdkDrag class="cdk-drag-preview">
     <h3>Datos Historial Educativo</h3>

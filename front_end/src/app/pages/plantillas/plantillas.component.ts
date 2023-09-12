@@ -3,6 +3,7 @@ import {Plantilla} from "../../interfaces";
 import {ActivatedRoute} from '@angular/router';
 import {PlantillasService} from 'src/app/services/plantillas.service';
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-plantillas',
@@ -10,16 +11,18 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
   styleUrls: ['./plantillas.component.scss']
 })
 export class PlantillasComponent implements OnInit {
-
+  public formularioContacto!: FormGroup;
   @Input() plantilla?: Plantilla;
 
   public id: string | null = "";
+
 
   //public plantilla? : Plantilla;
 
   constructor(
     public activatedRoute: ActivatedRoute,
-    public plantillaService: PlantillasService
+    public plantillaService: PlantillasService,
+    public fb: FormBuilder
   ) {
 
   }
@@ -27,7 +30,26 @@ export class PlantillasComponent implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id')
     this.obtenerPlantilla()
+    this.formularioContacto = this.fb.group({
+      texto: ['' as string | null, Validators.required]
+    });
   }
+
+  nuevoContacto(){
+    console.log(this.formularioContacto.value)
+    this.plantillaService.setContacto(this.formularioContacto.value).subscribe({
+      complete: () =>{
+        this.plantillaService.getUltimoContacto().subscribe({
+          next: (data)=>{
+            this.plantilla?.contacto?.push(data.id)
+            this.plantillaService.updatePlantilla(this.plantilla,this.plantilla?.id).subscribe()
+          }
+        })
+
+      }
+    })
+  }
+
 
 
   // Obtenemos los datos de la plantilla

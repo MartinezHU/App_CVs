@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from app_cvs.models import *
 from app_cvs.serializers import *
@@ -9,10 +11,17 @@ from app_cvs.serializers import *
 # Create your views here.
 
 
-class Contacto(viewsets.ModelViewSet):
+class Contactos(viewsets.ModelViewSet):
     queryset = Contacto.objects.all()
     serializer_class = ContactoSerializer
     permission_classes = [AllowAny]
+
+    @action(detail=False, methods=['GET'])
+    def obtener_ultimo_contacto(self, request):
+        ultimo_contacto = Contacto.objects.latest('id')
+        print(ultimo_contacto)
+        serializer = ContactoSerializer(ultimo_contacto, context={'request': request})
+        return Response(serializer.data)
 
 
 class PerfilProfesional(viewsets.ModelViewSet):

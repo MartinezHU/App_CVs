@@ -10,7 +10,7 @@ from app_cvs import views
 # from main import views
 
 router = DefaultRouter()
-router.register(r'contacto', views.Contacto, basename='contacto')
+router.register(r'contacto', views.Contactos, basename='contacto')
 router.register(r'perfilprofesional', views.PerfilProfesional, basename='perfilprofesional')
 router.register(r'intereses', views.Intereses, basename='intereses')
 router.register(r'historialempleo', views.HistorialEmpleo, basename='historialempleo')

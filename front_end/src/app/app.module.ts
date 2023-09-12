@@ -8,6 +8,7 @@ import { MainComponent } from './pages/main/main.component';
 import { PlantillasComponent } from './pages/plantillas/plantillas.component';
 import {RouterModule} from "@angular/router";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     HttpClientModule,
     RouterModule,
     DragDropModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
