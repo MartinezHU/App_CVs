@@ -24,13 +24,12 @@ export class PlantillasService {
     return this.http.put<any>(`${url}/plantilla/${id}/`,plantilla)
   }
 
-  setContacto(contacto:any): Observable<any>{
-    console.log(`${url}/contacto/`)
-    return this.http.post<any>(`${url}/contacto/`,contacto)
+  setElemento(elemento:any, tipoElemento:string): Observable<any>{
+    return this.http.post<any>(`${url}/${tipoElemento}/`,elemento)
   }
 
-  getUltimoContacto(): Observable<any>{
-    return this.http.get<any>(`${url}/contacto/obtener_ultimo_contacto/`)
+  getUltimoElemento( tipoElemento:string): Observable<any>{
+    return this.http.get<any>(`${url}/${tipoElemento}/obtener_ultimo_${tipoElemento}/`)
   }
 
 }

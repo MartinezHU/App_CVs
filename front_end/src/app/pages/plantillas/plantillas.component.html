@@ -13,7 +13,7 @@
       <li *ngFor="let contacto of plantilla?.datos_contacto">{{contacto.texto}}</li>
     </ul>
     <div>
-      <form [formGroup]="formularioContacto" (ngSubmit)="nuevoContacto()">
+      <form [formGroup]="formularioElemento" (ngSubmit)="nuevoElementoLista('contacto')">
         <input type="text" formControlName="texto">
         <label for="">Nuevo contacto</label>
         <button type="submit">Nuevo contacto</button>
@@ -25,6 +25,13 @@
     <ul>
       <li *ngFor="let histEdu of plantilla?.datos_historialEducativo">{{histEdu.texto}}</li>
     </ul>
+    <div>
+      <form [formGroup]="formularioElemento" (ngSubmit)="nuevoElementoLista('historialeducativo')">
+        <input type="text" formControlName="texto">
+        <label for="">Nuevo contacto</label>
+        <button type="submit">Nuevo contacto</button>
+      </form>
+    </div>
   </div>
 </div>
 </body>

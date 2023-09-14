@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -42,10 +43,16 @@ class HistorialEmpleo(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
 
-class HistorialEducativo(viewsets.ModelViewSet):
+class HistorialesEducativos(viewsets.ModelViewSet):
     queryset = HistorialEducativo.objects.all()
     serializer_class = HistorialEducativoSerializer
     permission_classes = [AllowAny]
+
+    @action(detail=False, methods=['GET'])
+    def obtener_ultimo_historialeducativo(self, request):
+        ultimo_historialEducativo = HistorialEducativo.objects.latest('id')
+        serializer = HistorialEducativoSerializer(ultimo_historialEducativo, context={'request': request})
+        return Response(serializer.data)
 
 
 class Otros(viewsets.ModelViewSet):
