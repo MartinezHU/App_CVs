@@ -34,7 +34,7 @@ export class PlantillasService {
     return this.http.delete<any>(`${url}/${tipoElemento}/${id}/`)
   }
 
-  getUltimoElemento( tipoElemento:string, elemento: any, id_plantilla: any): Observable<any>{
+  crearAniadirElemento( tipoElemento:string, elemento: any, id_plantilla: any): Observable<any>{
     return this.http.get<any>(`${url}/plantilla/crear_aniadir_elemento/?tipoElemento=${tipoElemento}&elemento=${elemento.texto}&id_plantilla=${id_plantilla}`)
   }
 

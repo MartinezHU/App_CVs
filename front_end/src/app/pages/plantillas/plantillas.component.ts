@@ -42,7 +42,7 @@ export class PlantillasComponent implements OnInit {
  * @param tipoElemento Tipo de elemento del bloque (Contacto, Historial Educativo, Software, etc)
  */
   nuevoElementoLista(tipoElemento: string){
-    this.plantillaService.getUltimoElemento(tipoElemento, this.formularioElemento.value, this.plantilla?.id).subscribe()
+    this.plantillaService.crearAniadirElemento(tipoElemento, this.formularioElemento.value, this.plantilla?.id).subscribe()
   }
 
   eliminarElemento(tipoElemento: string, id:number){
