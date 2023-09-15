@@ -24,12 +24,18 @@ export class PlantillasService {
     return this.http.put<any>(`${url}/plantilla/${id}/`,plantilla)
   }
 
+
+
   setElemento(elemento:any, tipoElemento:string): Observable<any>{
     return this.http.post<any>(`${url}/${tipoElemento}/`,elemento)
   }
 
+  deleteElemento(tipoElemento:string, id: number): Observable<any>{
+    return this.http.delete<any>(`${url}/${tipoElemento}/${id}/`)
+  }
+
   getUltimoElemento( tipoElemento:string, elemento: any, id_plantilla: any): Observable<any>{
-    return this.http.get<any>(`${url}/plantilla/obtener_ultimo_elemento/?tipoElemento=${tipoElemento}&elemento=${elemento.texto}&id_plantilla=${id_plantilla}`)
+    return this.http.get<any>(`${url}/plantilla/crear_aniadir_elemento/?tipoElemento=${tipoElemento}&elemento=${elemento.texto}&id_plantilla=${id_plantilla}`)
   }
 
 }
