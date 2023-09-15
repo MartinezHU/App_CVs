@@ -18,7 +18,7 @@ router.register(r'historialeducativo', views.HistorialesEducativos, basename='hi
 router.register(r'otros', views.Otros, basename='otros')
 router.register(r'software', views.Software, basename='software')
 router.register(r'redessociales', views.RedesSociales, basename='redessociales')
-router.register(r'plantilla', views.Plantilla, basename='plantilla')
+router.register(r'plantilla', views.Plantillas, basename='plantilla')
 
 urlpatterns = [
     path('', include(router.urls)),

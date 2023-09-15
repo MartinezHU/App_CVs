@@ -5,8 +5,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from app_cvs.models import *
 from app_cvs.serializers import *
+from app_cvs.models import *
 
 
 # Create your views here.
@@ -16,13 +16,6 @@ class Contactos(viewsets.ModelViewSet):
     queryset = Contacto.objects.all()
     serializer_class = ContactoSerializer
     permission_classes = [AllowAny]
-
-    @action(detail=False, methods=['GET'])
-    def obtener_ultimo_contacto(self, request):
-        ultimo_contacto = Contacto.objects.latest('id')
-        print(ultimo_contacto)
-        serializer = ContactoSerializer(ultimo_contacto, context={'request': request})
-        return Response(serializer.data)
 
 
 class PerfilProfesional(viewsets.ModelViewSet):
@@ -48,12 +41,6 @@ class HistorialesEducativos(viewsets.ModelViewSet):
     serializer_class = HistorialEducativoSerializer
     permission_classes = [AllowAny]
 
-    @action(detail=False, methods=['GET'])
-    def obtener_ultimo_historialeducativo(self, request):
-        ultimo_historialEducativo = HistorialEducativo.objects.latest('id')
-        serializer = HistorialEducativoSerializer(ultimo_historialEducativo, context={'request': request})
-        return Response(serializer.data)
-
 
 class Otros(viewsets.ModelViewSet):
     queryset = Otros.objects.all()
@@ -73,7 +60,34 @@ class RedesSociales(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
 
-class Plantilla(viewsets.ModelViewSet):
+class Plantillas(viewsets.ModelViewSet):
     queryset = Plantilla.objects.all()
     serializer_class = PlantillaSerializer
     permission_classes = [AllowAny]
+
+    @transaction.atomic()
+    @action(detail=False, methods=['GET'])
+    def obtener_ultimo_elemento(self, request):
+        tipoElemento = request.query_params.get('tipoElemento')
+        elemento = request.query_params.get('elemento')
+        id_plantilla = request.query_params.get('id_plantilla')
+        plantilla = Plantilla.objects.get(pk=id_plantilla)
+
+        if tipoElemento == 'contacto':
+            contacto = Contacto.objects.create()
+            contacto.texto = elemento
+            contacto.save()
+            ultimo_contacto = Contacto.objects.latest('id')
+            plantilla.contacto.add(ultimo_contacto)
+            plantilla.save()
+            serializer = ContactoSerializer(ultimo_contacto, context={'request': request})
+        else:  # tipoElemento == 'historialeducativo':
+            histEdu = HistorialEducativo.objects.create()
+            histEdu.texto = elemento
+            histEdu.save()
+            ultimo_historialEdu = HistorialEducativo.objects.latest('id')
+            plantilla.historialEducativo.add(ultimo_historialEdu)
+            plantilla.save()
+            serializer = HistorialEducativoSerializer(ultimo_historialEdu, context={'request': request})
+
+        return Response(serializer.data)

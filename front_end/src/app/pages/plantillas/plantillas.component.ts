@@ -42,38 +42,10 @@ export class PlantillasComponent implements OnInit {
  * @param tipoElemento Tipo de elemento del bloque (Contacto, Historial Educativo, Software, etc)
  */
   nuevoElementoLista(tipoElemento: string){
-    console.log(this.formularioElemento.value)
-    console.log(tipoElemento)
-
-    this.plantillaService.setElemento(this.formularioElemento.value, tipoElemento).subscribe({
-      complete: () =>{
-        this.aniadirElemento(tipoElemento)
-      }
-    })
+    this.plantillaService.getUltimoElemento(tipoElemento, this.formularioElemento.value, this.plantilla?.id).subscribe()
   }
 
 
-/**
- * Buscamos el elemento recién añadido y lo agregamos a la plantilla
- * @param tipoElemento Tipo de elemento del bloque (Contacto, Historial Educativo, Software, etc)
- */
-aniadirElemento(tipoElemento: string){
-  this.plantillaService.getUltimoElemento(tipoElemento).subscribe({
-
-    next: (data)=>{
-      this.elemento = data;
-      switch (tipoElemento) {
-        case 'contacto':
-          this.plantilla?.contacto?.push(data.id)
-          break;
-        case 'historialeducativo':
-          this.plantilla?.historialEducativo?.push(data.id)
-          break;
-      }
-      this.plantillaService.updatePlantilla(this.plantilla,this.plantilla?.id).subscribe()
-    }
-  })
-}
 
 
   // Obtenemos los datos de la plantilla

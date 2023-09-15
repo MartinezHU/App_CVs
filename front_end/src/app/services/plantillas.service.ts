@@ -28,8 +28,8 @@ export class PlantillasService {
     return this.http.post<any>(`${url}/${tipoElemento}/`,elemento)
   }
 
-  getUltimoElemento( tipoElemento:string): Observable<any>{
-    return this.http.get<any>(`${url}/${tipoElemento}/obtener_ultimo_${tipoElemento}/`)
+  getUltimoElemento( tipoElemento:string, elemento: any, id_plantilla: any): Observable<any>{
+    return this.http.get<any>(`${url}/plantilla/obtener_ultimo_elemento/?tipoElemento=${tipoElemento}&elemento=${elemento.texto}&id_plantilla=${id_plantilla}`)
   }
 
 }
