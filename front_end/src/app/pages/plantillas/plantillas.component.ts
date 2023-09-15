@@ -11,10 +11,11 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./plantillas.component.scss']
 })
 export class PlantillasComponent implements OnInit {
-  public formularioContacto!: FormGroup;
+  public formularioElemento!: FormGroup;
   @Input() plantilla?: Plantilla;
 
   public id: string | null = "";
+  elemento: any;
 
 
   //public plantilla? : Plantilla;
@@ -30,25 +31,20 @@ export class PlantillasComponent implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id')
     this.obtenerPlantilla()
-    this.formularioContacto = this.fb.group({
+    this.formularioElemento = this.fb.group({
       texto: ['' as string | null, Validators.required]
     });
   }
 
-  nuevoContacto(){
-    console.log(this.formularioContacto.value)
-    this.plantillaService.setContacto(this.formularioContacto.value).subscribe({
-      complete: () =>{
-        this.plantillaService.getUltimoContacto().subscribe({
-          next: (data)=>{
-            this.plantilla?.contacto?.push(data.id)
-            this.plantillaService.updatePlantilla(this.plantilla,this.plantilla?.id).subscribe()
-          }
-        })
 
-      }
-    })
+ /**
+ * Añadimos un nuevo elemento a un bloque de la plantilla en funcion de su tipo
+ * @param tipoElemento Tipo de elemento del bloque (Contacto, Historial Educativo, Software, etc)
+ */
+  nuevoElementoLista(tipoElemento: string){
+    this.plantillaService.getUltimoElemento(tipoElemento, this.formularioElemento.value, this.plantilla?.id).subscribe()
   }
+
 
 
 
