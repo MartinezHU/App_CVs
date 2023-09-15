@@ -45,7 +45,9 @@ export class PlantillasComponent implements OnInit {
     this.plantillaService.getUltimoElemento(tipoElemento, this.formularioElemento.value, this.plantilla?.id).subscribe()
   }
 
-
+  eliminarElemento(tipoElemento: string, id:number){
+    this.plantillaService.deleteElemento(tipoElemento, id).subscribe()
+  }
 
 
   // Obtenemos los datos de la plantilla
@@ -53,14 +55,10 @@ export class PlantillasComponent implements OnInit {
     this.plantillaService.getPlantilla(this.id).subscribe({
       next: (plant) => {
         this.plantilla = plant
-        console.log(this.plantilla)
       },
       error: (e) => {
         console.log(e)
       },
-      complete: () => {
-        console.log('Llamada completada')
-      }
     })
   }
 

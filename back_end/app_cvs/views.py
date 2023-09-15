@@ -67,7 +67,7 @@ class Plantillas(viewsets.ModelViewSet):
 
     @transaction.atomic()
     @action(detail=False, methods=['GET'])
-    def obtener_ultimo_elemento(self, request):
+    def crear_aniadir_elemento(self, request):
         tipoElemento = request.query_params.get('tipoElemento')
         elemento = request.query_params.get('elemento')
         id_plantilla = request.query_params.get('id_plantilla')
@@ -77,17 +77,15 @@ class Plantillas(viewsets.ModelViewSet):
             contacto = Contacto.objects.create()
             contacto.texto = elemento
             contacto.save()
-            ultimo_contacto = Contacto.objects.latest('id')
-            plantilla.contacto.add(ultimo_contacto)
-            plantilla.save()
-            serializer = ContactoSerializer(ultimo_contacto, context={'request': request})
+            plantilla.contacto.add(contacto)
+
         else:  # tipoElemento == 'historialeducativo':
             histEdu = HistorialEducativo.objects.create()
             histEdu.texto = elemento
             histEdu.save()
-            ultimo_historialEdu = HistorialEducativo.objects.latest('id')
-            plantilla.historialEducativo.add(ultimo_historialEdu)
-            plantilla.save()
-            serializer = HistorialEducativoSerializer(ultimo_historialEdu, context={'request': request})
+            plantilla.historialEducativo.add(histEdu)
 
-        return Response(serializer.data)
+        plantilla.save()
+
+
+        return Response()
