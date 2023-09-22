@@ -59,6 +59,10 @@ export class PlantillasComponent implements OnInit {
       error: (e) => {
         console.log(e)
       },
+      complete: ()=>{
+        console.log(document.getElementById('div_contacto')?.getBoundingClientRect().top,'contacto')
+        console.log(document.getElementById('div_historial')?.getBoundingClientRect().top,'historial')
+      }
     })
   }
 

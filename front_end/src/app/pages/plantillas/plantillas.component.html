@@ -6,8 +6,9 @@
   <title>Pagina de pLantilla</title>
 </head>
 <body>
-<div cdkDropList (cdkDropListDropped)="onDrop($event)">
-  <div cdkDrag class="cdk-drag-preview">
+<div cdkDropList (cdkDropListDropped)="onDrop($event)" style="display: flex; flex-direction: column;">
+
+  <div id="div_contacto" cdkDrag class="cdk-drag-preview">
     <h3>Datos Contacto</h3>
     <ul>
       <li *ngFor="let contacto of plantilla?.datos_contacto">{{contacto.texto}} <button (click)="eliminarElemento('contacto',contacto.id)">Eliminar</button></li>
@@ -20,7 +21,8 @@
       </form>
     </div>
   </div>
-  <div cdkDrag class="cdk-drag-preview">
+
+  <div id="div_historial" cdkDrag class="cdk-drag-preview" >
     <h3>Datos Historial Educativo</h3>
     <ul>
       <li *ngFor="let histEdu of plantilla?.datos_historialEducativo">{{histEdu.texto}} <button (click)="eliminarElemento('historialeducativo',histEdu.id)">Eliminar</button></li>
@@ -33,6 +35,7 @@
       </form>
     </div>
   </div>
+
 </div>
 </body>
 </html>
