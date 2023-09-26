@@ -69,16 +69,16 @@ export class PlantillasComponent implements OnInit {
       },
       complete: () => {
         this.elementoPadre = document.getElementById('div_plantilla')
-        console.log(this.elementoPadre)
+
         let hijos = this.elementoPadre.children;
 
         console.log(hijos)
 
         for (let hijo of hijos){
           if(!localStorage.getItem(hijo.id)){
-            localStorage.setItem(hijo.id, hijo.style.order)
+            localStorage.setItem(hijo.id, hijo.style.order) // POSIBLE PROBLEMA
           }
-          
+          console.log(localStorage.getItem(hijo.id))
           hijo.style.order = localStorage.getItem(hijo.id)
           
        
@@ -95,11 +95,16 @@ export class PlantillasComponent implements OnInit {
   onDrop(event: CdkDragDrop<void>) {
     const previousIndex = event.previousIndex;
     const currentIndex = event.currentIndex;
+    console.log(previousIndex)
+    console.log(currentIndex)
 
     // Mueve los contenedores en el DOM
     const containerElement = event.container.element.nativeElement;
     const childElements = containerElement.children;
     const draggedElement = childElements[previousIndex];
+
+    console.log(containerElement)
+    console.log(childElements)
 
     // Variables para almacenar temporalmente las posiciones de los div
 
@@ -107,18 +112,24 @@ export class PlantillasComponent implements OnInit {
       containerElement.insertBefore(draggedElement, childElements[currentIndex]);
 
       this.idElementoHijo = childElements[currentIndex + 1].getAttribute('id')
-      this.idElementoDrag = draggedElement.getAttribute('id')
-
-
-
+     
     } else {
       containerElement.insertBefore(draggedElement, childElements[currentIndex + 1]);
 
       this.idElementoHijo = childElements[currentIndex - 1].getAttribute('id')
-      this.idElementoDrag = draggedElement.getAttribute('id')
+
     }
+    this.idElementoDrag = draggedElement.getAttribute('id')
+
+    /*
+    console.log(this.idElementoHijo)
+    console.log(this.idElementoDrag)
+    console.log('--------------------------')*/
 
     this.cambiarPosicionElementos();
+
+   
+  
 
   }
 
@@ -132,6 +143,9 @@ export class PlantillasComponent implements OnInit {
 
     this.elementoHijo = document.getElementById(this.idElementoHijo!);
     this.elementoDrag = document.getElementById(this.idElementoDrag!);
+ 
+
+
 
     posHijo = this.elementoDrag.style.order;
     posDrag = this.elementoHijo.style.order;
@@ -142,12 +156,12 @@ export class PlantillasComponent implements OnInit {
     localStorage.setItem(this.idElementoHijo!, this.elementoHijo.style.order);
     localStorage.setItem(this.idElementoDrag!, this.elementoDrag.style.order);
 
-    
+    /*
     console.log(this.elementoHijo, 'Elemento Hijo')
     console.log(this.elementoHijo.style.order, 'Orden Hijo')
     console.log(this.elementoDrag, 'Elemento Drag')
     console.log(this.elementoDrag.style.order, 'Orden Drag')
-    
+    */
   }
 
 }
