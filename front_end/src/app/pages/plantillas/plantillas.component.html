@@ -6,50 +6,24 @@
   <title>Pagina de pLantilla</title>
 </head>
 <body>
-<div id="div_plantilla" cdkDropList (cdkDropListDropped)="onDrop($event)" style="display: flex; flex-direction: column;">
+<div *ngFor="let elemento of plantilla | keyvalue" id="div_plantilla" cdkDropList (cdkDropListDropped)="onDrop($event)" style="display: flex; flex-direction: column;">
+  <ng-container *ngIf="filtrarElementos(elemento.key)">
 
   <div id="div_contacto" cdkDrag class="cdk-drag-preview" style="order: 1;">
-    <h3>Datos Contacto</h3>
+    <h3>Datos {{elemento.key}}</h3>
+
     <ul>
-      <li *ngFor="let contacto of plantilla?.datos_contacto">{{contacto.texto}} <button (click)="eliminarElemento('contacto',contacto.id)">Eliminar</button></li>
+      <li *ngFor="let contacto of plantilla?.[elemento.key]; let i = index">{{contacto}} {{i}} <button (click)="eliminarElemento(elemento.key, i)">Eliminar</button></li>
     </ul>
     <div>
-      <form [formGroup]="formularioElemento" (ngSubmit)="nuevoElementoLista('contacto')">
+      <form [formGroup]="formularioElemento" (ngSubmit)="nuevoElementoLista(elemento.key, plantilla?.[elemento.key])">
         <input type="text" formControlName="texto">
         <label for="">Nuevo contacto</label>
         <button type="submit">Nuevo contacto</button>
       </form>
     </div>
   </div>
-
-  <div id="div_historial" cdkDrag class="cdk-drag-preview" style="order: 2;">
-    <h3>Datos Historial Educativo</h3>
-    <ul>
-      <li *ngFor="let histEdu of plantilla?.datos_historialEducativo">{{histEdu.texto}} <button (click)="eliminarElemento('historialeducativo',histEdu.id)">Eliminar</button></li>
-    </ul>
-    <div>
-      <form [formGroup]="formularioElemento" (ngSubmit)="nuevoElementoLista('historialeducativo')">
-        <input type="text" formControlName="texto">
-        <label for="">Nuevo contacto</label>
-        <button type="submit">Nuevo contacto</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="div_prueba" cdkDrag class="cdk-drag-preview" style="order: 3;">
-    <h3>Datos Prueba</h3>
-    <ul>
-      <li *ngFor="let histEdu of plantilla?.datos_historialEducativo">{{histEdu.texto}} <button (click)="eliminarElemento('historialeducativo',histEdu.id)">Eliminar</button></li>
-    </ul>
-    <div>
-      <form [formGroup]="formularioElemento" (ngSubmit)="nuevoElementoLista('historialeducativo')">
-        <input type="text" formControlName="texto">
-        <label for="">Nuevo contacto</label>
-        <button type="submit">Nuevo contacto</button>
-      </form>
-    </div>
-  </div>
-
+  </ng-container>
 </div>
 </body>
 </html>

@@ -1,31 +1,27 @@
+import { NgIterable } from "@angular/core";
+
 export interface NewResponse {
   plantillas: Plantilla[];
 }
 
 export interface Plantilla {
+  [key: string]: (string & NgIterable<string>) | null | undefined | any;
   url:                       string;
   id:                        number;
   nombre:                    string;
   titulo?:                   string;
   subtitulo?:                string;
-  fotoPerfil?:               null;
+  fotoPerfil?:               any;
   presentacion?:             string;
-  contacto?:                 number[];
-  datos_contacto?:           Datos[];
-  perfilProfesional?:        number[];
-  datos_perfilProfesional?:  Datos[];
-  intereses?:                number[];
-  datos_intereses?:          Datos[];
-  historialEmpleo?:          number[];
-  datos_historialEmpleo?:    Datos[];
-  historialEducativo?:       number[];
-  datos_historialEducativo?: Datos[];
-  otros?:                    number[];
-  datos_otros?:              Datos[];
-  software?:                 number[];
-  datos_software?:           Datos[];
-  redesSociales?:            number[];
-  datos_redesSociales?:      Datos[];
+  contacto?:                 string[];
+  perfilProfesional?:        string[];
+  intereses?:                string[];
+  historialEmpleo?:          string[];
+  historialEducativo?:       string[];
+  otros?:                    string[];
+  software?:                 string[];
+  redesSociales?:            any;
+
 }
 
 export interface Datos {
