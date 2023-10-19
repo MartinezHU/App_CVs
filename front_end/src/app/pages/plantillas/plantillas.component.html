@@ -9,7 +9,7 @@
 <div *ngFor="let elemento of plantilla | keyvalue" id="div_plantilla" cdkDropList (cdkDropListDropped)="onDrop($event)" style="display: flex; flex-direction: column;">
   <ng-container *ngIf="filtrarElementos(elemento.key)">
 
-  <div id="div_contacto" cdkDrag class="cdk-drag-preview" style="order: 1;">
+  <div id="div_contacto" cdkDrag class="cdk-drag-preview">
     <h3>Datos {{elemento.key}}</h3>
 
     <ul>

@@ -53,15 +53,12 @@ export class PlantillasComponent implements OnInit {
   */
   nuevoElementoLista(tipoElemento: any,valorElemento: string[] | undefined) {
     this.elemento = valorElemento
+    
     if(!this.elemento){
       this.elemento = []
     }
     this.elemento?.push(this.formularioElemento.value.texto)
     this.plantilla![tipoElemento] = this.elemento
-
-   
-    console.log(this.elemento)
-    console.log(this.plantilla![tipoElemento])
     this.plantillaService.crearAniadirElemento(this.plantilla!).subscribe()
   }
 
@@ -69,10 +66,10 @@ export class PlantillasComponent implements OnInit {
 
       this.plantilla![tipoElemento].splice(indice,1)
       console.log(tipoElemento)
-
       this.plantillaService.crearAniadirElemento(this.plantilla!).subscribe()
   }
  
+  // Funcion para filtrar y no mostrar los campos url y id de la plantilla en el html
   filtrarElementos(elemento:any){
     if (elemento!= 'url' && elemento!='id'){
       return true
@@ -101,29 +98,12 @@ export class PlantillasComponent implements OnInit {
    * Funcion encargada de mover e intercambiar los elementos del HTML
    * @param event 
    */
-  onDrop(event: CdkDragDrop<void>) {
+  onDrop(event: CdkDragDrop<string[]>) {
     const previousIndex = event.previousIndex;
     const currentIndex = event.currentIndex;
-
-    // Mueve los contenedores en el DOM
-    const containerElement = event.container.element.nativeElement;
-    const childElements = containerElement.children;
-    const draggedElement = childElements[previousIndex];
-
-    // Variables para almacenar temporalmente las posiciones de los div
-
-    if (currentIndex < previousIndex) {
-      containerElement.insertBefore(draggedElement, childElements[currentIndex]);
-
-      this.idElementoHijo = childElements[currentIndex + 1].getAttribute('id')
-     
-    } else {
-      containerElement.insertBefore(draggedElement, childElements[currentIndex + 1]);
-
-      this.idElementoHijo = childElements[currentIndex - 1].getAttribute('id')
-
-    }
-    this.idElementoDrag = draggedElement.getAttribute('id')
+    console.log(event.previousIndex);
+    console.log(event.currentIndex);
+    [this.plantilla![previousIndex], this.plantilla![currentIndex]] = [this.plantilla![currentIndex], this.plantilla![previousIndex]];
 
   }
 
